@@ -14,26 +14,21 @@
 #define CPRINTF_H
 #include <stdlib.h>
 #include <stdarg.h>
-#include <string.h>
 
 typedef enum {
-	false, true
-} bool;
-
-typedef enum {
-	INT = 0, FLOAT, CHAR, STR, NB_FORMATS, NO_FORMAT
-} FORMATS_TOKEN;
+	CHAR, STR, POINTER, INT_D, INT_I, INT_U, HEX_MIN, HEX_MAJ, NO_FORMAT, END, NB_FORMAT
+} type_list;
 
 typedef struct s_Format {
-	char			token;
-	int				(*f)(va_list av);
-	FORMATS_TOKEN	next_format;
+	char		type;
+	int		(*f)(va_list av);
 }Format;
 
-void	formatCmp(va_list av, char c);
-void	cprintf(char *str, ...);
-int		affStr(va_list av);
-int		affCh(va_list av);
-int		affInt(va_list av);
+void	check_fmt(va_list av, char c);
+void	ft_printf(const char *fmt, ...);
+int		print_s(va_list av);
+int		print_c(va_list av);
+int		print_d(va_list av);
+int		print_no_fmt(va_list av);
 
 #endif

@@ -50,69 +50,85 @@ void	ft_putnbr(int n)
 
 /* Machine à état */
 
-void ini_ListFormat_Token(Format list_format[NB_FORMATS])
+void init_list_fmt(Format list_fmt[NB_FORMAT])
 {
-	list_format[INT].token = 'd';
-	list_format[CHAR].token = 'c';
-	list_format[STR].token = 's';
+	list_fmt[CHAR].type = 'c';
+	list_fmt[STR].type = 's';
+	list_fmt[POINTER].type = 'p';
+	list_fmt[INT_D].type = 'd';
+	list_fmt[INT_I].type = 'i';
+	list_fmt[INT_U].type = 'u';
+	list_fmt[HEX_MIN].type = 'x';
+	list_fmt[HEX_MAJ].type = 'X';
+	list_fmt[NO_FORMAT].type = '%';
 
-	list_format[INT].next_format = CHAR;
-	list_format[CHAR].next_format = STR;
-	list_format[STR].next_format = NO_FORMAT;
-
-	list_format[INT].f = affInt;
-	list_format[CHAR].f = affCh;
-	list_format[STR].f = affStr;
+	list_fmt[CHAR].f = print_c;
+	list_fmt[STR].f = print_s;
+	list_fmt[INT_D].f = print_d;
+	list_fmt[INT_I].f = print_d;
+	list_fmt[NO_FORMAT].f = print_no_fmt;
 }
 
-void formatCmp(va_list av, char c)
+void check_fmt(va_list av, char c)
 {
-	Format list_format[NB_FORMATS];
-	ini_ListFormat_Token(list_format);
-	FORMATS_TOKEN current_format = INT;
-	while (current_format != NO_FORMAT)
+	Format list_fmt[NB_FORMAT];
+	init_list_fmt(list_fmt);
+	type_list current_fmt = CHAR;
+	while (current_fmt != END)
 	{
-		if (list_format[current_format].token == c)
-			list_format[current_format].f(av);
-		current_format = list_format[current_format].next_format;
+		if (list_fmt[current_fmt].type == c)
+			list_fmt[current_fmt].f(av);
+		current_fmt++;
 	}
 }
 	
 /* Fin machine à état */
 
-int affStr(va_list av)
+int print_s(va_list av)
 {
 	char	*s;
 	s = va_arg(av, char *);
 	ft_putstr(s);
-	return true;
+	return (1);
 }
 
-int affCh(va_list av)
+int print_c(va_list av)
 {
-	char c;
+	char	c;
 	c = va_arg(av, int);
 	ft_putchar(c);
-	return true;
+	return (1);
 }
 
-int affInt(va_list av)
+int print_d(va_list av)
 {
 	int	d;
 	d = va_arg(av, int);
 	ft_putnbr(d);
-	return true;
+	return (1);
 }
 
-void cprintf(char *str, ...)
+int print_no_fmt(va_list av)
+{
+	ft_putchar('%');
+	return (1);
+}
+
+void ft_printf(const char *fmt, ...)
 {
 	va_list av;
 	size_t i;
-	va_start(av, str);
-	for (i = 0; str[i]; i++)
-		if ((str[i]) == '%')
-			formatCmp(av, str[++i]);
-		else ft_putchar(str[i]);
+
+	va_start(av, fmt);
+	i = 0;
+	while (fmt[i])
+	{
+		if ((fmt[i]) == '%')
+			check_fmt(av, fmt[++i]);
+		else
+			ft_putchar(fmt[i]);
+		i++;
+	}
 	va_end(av);
 	ft_putchar('\n');
 }
