@@ -48,15 +48,39 @@ void	ft_putnbr(int n)
 	ft_putchar(nbr % 10 + 48);
 }
 
-void    ft_printhex(void *p)
+void    ft_printhex(unsigned long p)
 {
     int c;
     unsigned long nb;
     
-    nb = (unsigned long)p;
+    nb = p;
     if (nb >= 16)
         ft_printhex(nb / 16);
     c = nb % 16 + (nb % 16 < 10 ? '0' : 'a' - 10);
+    ft_putchar(c);
+}
+
+void    ft_print_x(unsigned int x)
+{
+    int c;
+    unsigned long nb;
+    
+    nb = (unsigned long)x;
+    if (nb >= 16)
+        ft_print_x(nb / 16);
+    c = nb % 16 + (nb % 16 < 10 ? '0' : 'a' - 10);
+    ft_putchar(c);
+}
+
+void    ft_print_X(unsigned int X)
+{
+    int c;
+    unsigned long nb;
+    
+    nb = (unsigned long)X;
+    if (nb >= 16)
+        ft_print_X(nb / 16);
+    c = nb % 16 + (nb % 16 < 10 ? '0' : 'A' - 10);
     ft_putchar(c);
 }
 
@@ -69,7 +93,7 @@ void init_list_fmt(Format list_fmt[NB_FORMAT])
 	list_fmt[POINTER].type = 'p';
 	list_fmt[INT_D].type = 'd';
 	list_fmt[INT_I].type = 'i';
-	list_fmt[INT_U].type = 'u';
+	list_fmt[UN].type = 'u';
 	list_fmt[HEX_MIN].type = 'x';
 	list_fmt[HEX_MAJ].type = 'X';
 	list_fmt[NO_FORMAT].type = '%';
@@ -77,8 +101,10 @@ void init_list_fmt(Format list_fmt[NB_FORMAT])
 	list_fmt[CHAR].f = print_c;
 	list_fmt[STR].f = print_s;
 	list_fmt[POINTER].f = print_p;
-	list_fmt[INT_D].f = print_d;
-	list_fmt[INT_I].f = print_d;
+	list_fmt[INT_D].f = print_int;
+	list_fmt[INT_I].f = print_int;
+	list_fmt[HEX_MIN].f = print_x;
+	list_fmt[HEX_MAJ].f = print_X;
 	list_fmt[NO_FORMAT].f = print_no_fmt;
 }
 
@@ -113,11 +139,11 @@ int print_c(va_list av)
 	return (1);
 }
 
-int print_d(va_list av)
+int print_int(va_list av)
 {
-	int	d;
-	d = va_arg(av, int);
-	ft_putnbr(d);
+	int	n;
+	n = va_arg(av, int);
+	ft_putnbr(n);
 	return (1);
 }
 
@@ -127,7 +153,23 @@ int print_p(va_list av)
 	p = va_arg(av, void *);
 	ft_putchar('0');
 	ft_putchar('x');
-	ft_printhex(p);
+	ft_printhex((unsigned long)p);
+	return (1);
+}
+
+int print_x(va_list av)
+{
+	unsigned int x;
+	x = va_arg(av, unsigned int);
+	ft_print_x(x);
+	return (1);
+}
+
+int print_X(va_list av)
+{
+	unsigned int X;
+	X = va_arg(av, unsigned int);
+	ft_print_X(X);
 	return (1);
 }
 
@@ -153,5 +195,4 @@ void ft_printf(const char *fmt, ...)
 		i++;
 	}
 	va_end(av);
-	ft_putchar('\n');
 }

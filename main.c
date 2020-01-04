@@ -18,7 +18,10 @@
 
 int		main(int ac, char **av)
 {
-	ft_printf("Here we are %d, %p %% %s", ac, &ac, av[1]);
-	printf("Here we are %d, %p %% %s", ac, &ac, av[1]);
-	return (0);
+	int x;
+
+	x = 2147483647;
+	ft_printf("MY PRINTF : Here we are %d, %p %X %% %s", ac, &ac, x, av[1]);
+	printf("\nCP PRINTF : Here we are %d, %p %X %% %s", ac, &ac, x, av[1]);
+	return (0); 
 }

@@ -16,7 +16,7 @@
 #include <stdarg.h>
 
 typedef enum {
-	CHAR, STR, POINTER, INT_D, INT_I, INT_U, HEX_MIN, HEX_MAJ, NO_FORMAT, END, NB_FORMAT
+	CHAR, STR, POINTER, INT_D, INT_I, UN, HEX_MIN, HEX_MAJ, NO_FORMAT, END, NB_FORMAT
 } type_list;
 
 typedef struct s_Format {
@@ -28,8 +28,10 @@ void	check_fmt(va_list av, char c);
 void	ft_printf(const char *fmt, ...);
 int		print_s(va_list av);
 int		print_c(va_list av);
-int		print_d(va_list av);
+int		print_int(va_list av);
 int		print_p(va_list av);
+int		print_x(va_list av);
+int		print_X(va_list av);
 int		print_no_fmt(va_list av);
 
 #endif
