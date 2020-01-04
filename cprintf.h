@@ -29,6 +29,7 @@ void	ft_printf(const char *fmt, ...);
 int		print_s(va_list av);
 int		print_c(va_list av);
 int		print_d(va_list av);
+int		print_p(va_list av);
 int		print_no_fmt(va_list av);
 
 #endif

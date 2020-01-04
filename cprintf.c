@@ -48,6 +48,18 @@ void	ft_putnbr(int n)
 	ft_putchar(nbr % 10 + 48);
 }
 
+void    ft_printhex(void *p)
+{
+    int c;
+    unsigned long nb;
+    
+    nb = (unsigned long)p;
+    if (nb >= 16)
+        ft_printhex(nb / 16);
+    c = nb % 16 + (nb % 16 < 10 ? '0' : 'a' - 10);
+    ft_putchar(c);
+}
+
 /* Machine à état */
 
 void init_list_fmt(Format list_fmt[NB_FORMAT])
@@ -64,6 +76,7 @@ void init_list_fmt(Format list_fmt[NB_FORMAT])
 
 	list_fmt[CHAR].f = print_c;
 	list_fmt[STR].f = print_s;
+	list_fmt[POINTER].f = print_p;
 	list_fmt[INT_D].f = print_d;
 	list_fmt[INT_I].f = print_d;
 	list_fmt[NO_FORMAT].f = print_no_fmt;
@@ -105,6 +118,16 @@ int print_d(va_list av)
 	int	d;
 	d = va_arg(av, int);
 	ft_putnbr(d);
+	return (1);
+}
+
+int print_p(va_list av)
+{
+	void	*p;
+	p = va_arg(av, void *);
+	ft_putchar('0');
+	ft_putchar('x');
+	ft_printhex(p);
 	return (1);
 }
 

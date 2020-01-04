@@ -18,7 +18,7 @@
 
 int		main(int ac, char **av)
 {
-	ft_printf("Here we are %d, %% %s", ac, av[1]);
-	printf("Here we are %d, %% %s", ac, av[1]);
+	ft_printf("Here we are %d, %p %% %s", ac, &ac, av[1]);
+	printf("Here we are %d, %p %% %s", ac, &ac, av[1]);
 	return (0);
 }
