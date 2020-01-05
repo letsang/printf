@@ -48,6 +48,13 @@ void	ft_putnbr(int n)
 	ft_putchar(nbr % 10 + 48);
 }
 
+void	ft_putunsigned(unsigned int n)
+{
+	if (n > 9)
+		ft_putnbr(n / 10);
+	ft_putchar(n % 10 + 48);
+}
+
 void    ft_printhex(unsigned long p)
 {
     int c;
@@ -103,6 +110,7 @@ void init_list_fmt(Format list_fmt[NB_FORMAT])
 	list_fmt[POINTER].f = print_p;
 	list_fmt[INT_D].f = print_int;
 	list_fmt[INT_I].f = print_int;
+	list_fmt[UN].f = print_un;
 	list_fmt[HEX_MIN].f = print_x;
 	list_fmt[HEX_MAJ].f = print_X;
 	list_fmt[NO_FORMAT].f = print_no_fmt;
@@ -144,6 +152,14 @@ int print_int(va_list av)
 	int	n;
 	n = va_arg(av, int);
 	ft_putnbr(n);
+	return (1);
+}
+
+int print_un(va_list av)
+{
+	int	n;
+	n = va_arg(av, unsigned int);
+	ft_putunsigned(n);
 	return (1);
 }
 

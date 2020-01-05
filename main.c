@@ -18,10 +18,10 @@
 
 int		main(int ac, char **av)
 {
-	int x;
+	unsigned int x;
 
-	x = 2147483647;
-	ft_printf("MY PRINTF : Here we are %d, %p %X %% %s", ac, &ac, x, av[1]);
-	printf("\nCP PRINTF : Here we are %d, %p %X %% %s", ac, &ac, x, av[1]);
+	x = 2147483650;
+	ft_printf("MY PRINTF : Here we are %u, %p %X %% %s", x, &ac, x, av[1]);
+	printf("\nCP PRINTF : Here we are %u, %p %X %% %s", x, &ac, x, av[1]);
 	return (0); 
 }
