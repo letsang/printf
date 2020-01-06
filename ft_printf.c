@@ -57,57 +57,38 @@ int	ft_putnbr(int n)
 	return (ret);
 }
 
-int	ft_put_un(unsigned int n)
+int	ft_putnbr_un(unsigned int n)
 {
 	static int	ret;
 
 	ret = 0;
 	if (n > 9)
-		ft_put_un(n / 10);
+		ft_putnbr_un(n / 10);
 	ret += ft_putchar(n % 10 + 48);
 	return (ret);
 }
 
-int	ft_printhex(unsigned long p)
+int	ft_putnbr_hex_min(unsigned long nb)
 {
     int			c;
     static int		ret;
-    unsigned long	nb;
     
-    nb = p;
     ret = 0;
     if (nb >= 16)
-        ft_printhex(nb / 16);
+        ft_putnbr_hex_min(nb / 16);
     c = nb % 16 + (nb % 16 < 10 ? '0' : 'a' - 10);
     ret += ft_putchar(c);
     return (ret);
 }
 
-int	ft_print_x(unsigned int x)
+int	ft_putnbr_hex_maj(unsigned long nb)
 {
     int			c;
     static int		ret;
-    unsigned long	nb;
     
-    nb = (unsigned long)x;
     ret = 0;
     if (nb >= 16)
-        ft_print_x(nb / 16);
-    c = nb % 16 + (nb % 16 < 10 ? '0' : 'a' - 10);
-    ret += ft_putchar(c);
-    return (ret);
-}
-
-int	ft_print_X(unsigned int X)
-{
-    int			c;
-    static int		ret;
-    unsigned long	nb;
-    
-    nb = (unsigned long)X;
-    ret = 0;
-    if (nb >= 16)
-        ft_print_X(nb / 16);
+        ft_putnbr_hex_maj(nb / 16);
     c = nb % 16 + (nb % 16 < 10 ? '0' : 'A' - 10);
     ret += ft_putchar(c);
     return (ret);
@@ -130,12 +111,12 @@ void init_list_fmt(Format list_fmt[NB_FORMAT])
 	list_fmt[CHAR].f = print_c;
 	list_fmt[STR].f = print_s;
 	list_fmt[POINTER].f = print_p;
-	list_fmt[INT_D].f = print_int;
-	list_fmt[INT_I].f = print_int;
-	list_fmt[UN].f = print_un;
-	list_fmt[HEX_MIN].f = print_x;
-	list_fmt[HEX_MAJ].f = print_X;
-	list_fmt[NO_FORMAT].f = print_no_fmt;
+	list_fmt[INT_D].f = print_di;
+	list_fmt[INT_I].f = print_di;
+	list_fmt[UN].f = print_u;
+	list_fmt[HEX_MIN].f = print_xmin;
+	list_fmt[HEX_MAJ].f = print_xmaj;
+	list_fmt[NO_FORMAT].f = print_percent;
 }
 
 int	check_fmt(va_list av, char c)
@@ -174,7 +155,7 @@ int	print_c(va_list av)
 	return (ft_putchar(c));
 }
 
-int	print_int(va_list av)
+int	print_di(va_list av)
 {
 	int	n;
 
@@ -182,12 +163,12 @@ int	print_int(va_list av)
 	return (ft_putnbr(n));
 }
 
-int	print_un(va_list av)
+int	print_u(va_list av)
 {
 	int	n;
 
 	n = va_arg(av, unsigned int);
-	return (ft_put_un(n));
+	return (ft_putnbr_un(n));
 }
 
 int	 print_p(va_list av)
@@ -199,27 +180,27 @@ int	 print_p(va_list av)
 	p = va_arg(av, void *);
 	ret = ft_putchar('0');
 	ret += ft_putchar('x');
-	ret += ft_printhex((unsigned long)p);
+	ret += ft_putnbr_hex_min((unsigned long)p);
 	return (ret);
 }
 
-int	print_x(va_list av)
+int	print_xmin(va_list av)
 {
-	unsigned int x;
+	unsigned long x;
 
 	x = va_arg(av, unsigned int);
-	return (ft_print_x(x));
+	return (ft_putnbr_hex_min(x));
 }
 
-int	print_X(va_list av)
+int	print_xmaj(va_list av)
 {
-	unsigned int X;
+	unsigned long x;
 
-	X = va_arg(av, unsigned int);
-	return (ft_print_X(X));
+	x = va_arg(av, unsigned int);
+	return (ft_putnbr_hex_maj(x));
 }
 
-int	print_no_fmt(va_list av)
+int	print_percent(va_list av)
 {
 	return (ft_putchar('%'));
 }

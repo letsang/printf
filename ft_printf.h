@@ -28,11 +28,11 @@ int	check_fmt(va_list av, char c);
 int	ft_printf(const char *fmt, ...);
 int	print_s(va_list av);
 int	print_c(va_list av);
-int	print_int(va_list av);
-int	print_un(va_list av);
+int	print_di(va_list av);
+int	print_u(va_list av);
 int	print_p(va_list av);
-int	print_x(va_list av);
-int	print_X(va_list av);
-int	print_no_fmt(va_list av);
+int	print_xmin(va_list av);
+int	print_xmaj(va_list av);
+int	print_percent(va_list av);
 
 #endif
