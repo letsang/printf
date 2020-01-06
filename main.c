@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cprintf.h"
+#include "ft_printf.h"
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -18,10 +18,14 @@
 
 int		main(int ac, char **av)
 {
-	unsigned int x;
+	unsigned int	x;
+	int		ret;
 
-	x = 2147483650;
-	ft_printf("MY PRINTF : Here we are %u, %p %X %% %s", x, &ac, x, av[1]);
-	printf("\nCP PRINTF : Here we are %u, %p %X %% %s", x, &ac, x, av[1]);
+	x = 101010;
+	ret = 0;
+	ret = ft_printf("MY PRINTF : Here we are %d, %p %X %% %s", x, &ac, x, av[1]);
+	printf("\nRETURN VALUE : %d\n", ret); 
+	ret = printf("CP PRINTF : Here we are %d, %p %X %% %s", x, &ac, x, av[1]);
+	printf("\nRETURN VALUE : %d", ret); 
 	return (0); 
 }

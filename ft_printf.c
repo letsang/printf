@@ -10,85 +10,107 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cprintf.h"
+#include "ft_printf.h"
 #include <unistd.h>
 
-void	ft_putchar(int c)
+int	ft_putchar(int c)
 {
-	write(1, &c, 1);
+	int		ret;
+
+	ret = write(1, &c, 1);
+	return (ret);
 }
 
-void	ft_putstr(const char *s)
+int	ft_putstr(const char *s)
 {
-	int i;
+	int		ret;
+	int		i;
 
+	ret = 0;
 	if (s)
 	{
 		i = 0;
 		while (s[i])
 		{
-			write(1, &s[i], 1);
+			ret += write(1, &s[i], 1);
 			i++;
 		}
 	}
+	return (ret);
 }
 
-void	ft_putnbr(int n)
+int	ft_putnbr(int n)
 {
-	unsigned int nbr;
+	static int	ret;
+	unsigned int	nbr;
 
 	nbr = n;
+	ret = 0;
 	if (n < 0)
 	{
-		ft_putchar('-');
+		ret = ft_putchar('-');
 		nbr *= -1;
 	}
 	if (nbr > 9)
 		ft_putnbr(nbr / 10);
-	ft_putchar(nbr % 10 + 48);
+	ret += ft_putchar(nbr % 10 + 48);
+	return (ret);
 }
 
-void	ft_putunsigned(unsigned int n)
+int	ft_put_un(unsigned int n)
 {
+	static int	ret;
+
+	ret = 0;
 	if (n > 9)
-		ft_putnbr(n / 10);
-	ft_putchar(n % 10 + 48);
+		ft_put_un(n / 10);
+	ret += ft_putchar(n % 10 + 48);
+	return (ret);
 }
 
-void    ft_printhex(unsigned long p)
+int	ft_printhex(unsigned long p)
 {
-    int c;
-    unsigned long nb;
+    int			c;
+    static int		ret;
+    unsigned long	nb;
     
     nb = p;
+    ret = 0;
     if (nb >= 16)
         ft_printhex(nb / 16);
     c = nb % 16 + (nb % 16 < 10 ? '0' : 'a' - 10);
-    ft_putchar(c);
+    ret += ft_putchar(c);
+    return (ret);
 }
 
-void    ft_print_x(unsigned int x)
+int	ft_print_x(unsigned int x)
 {
-    int c;
-    unsigned long nb;
+    int			c;
+    static int		ret;
+    unsigned long	nb;
     
     nb = (unsigned long)x;
+    ret = 0;
     if (nb >= 16)
         ft_print_x(nb / 16);
     c = nb % 16 + (nb % 16 < 10 ? '0' : 'a' - 10);
-    ft_putchar(c);
+    ret += ft_putchar(c);
+    return (ret);
 }
 
-void    ft_print_X(unsigned int X)
+int	ft_print_X(unsigned int X)
 {
-    int c;
-    unsigned long nb;
+    int			c;
+    static int		ret;
+    unsigned long	nb;
     
     nb = (unsigned long)X;
+    ret = 0;
     if (nb >= 16)
         ft_print_X(nb / 16);
     c = nb % 16 + (nb % 16 < 10 ? '0' : 'A' - 10);
-    ft_putchar(c);
+    ret += ft_putchar(c);
+    return (ret);
 }
 
 /* Machine à état */
@@ -116,99 +138,109 @@ void init_list_fmt(Format list_fmt[NB_FORMAT])
 	list_fmt[NO_FORMAT].f = print_no_fmt;
 }
 
-void check_fmt(va_list av, char c)
+int	check_fmt(va_list av, char c)
 {
+	int	ret;
 	Format list_fmt[NB_FORMAT];
+	type_list current_fmt;
+
+	ret = 0;
 	init_list_fmt(list_fmt);
-	type_list current_fmt = CHAR;
+	current_fmt = CHAR;
 	while (current_fmt != END)
 	{
 		if (list_fmt[current_fmt].type == c)
-			list_fmt[current_fmt].f(av);
+			ret += list_fmt[current_fmt].f(av);
 		current_fmt++;
 	}
+	return (ret);
 }
 	
 /* Fin machine à état */
 
-int print_s(va_list av)
+int	print_s(va_list av)
 {
 	char	*s;
+
 	s = va_arg(av, char *);
-	ft_putstr(s);
-	return (1);
+	return (ft_putstr(s));
 }
 
-int print_c(va_list av)
+int	print_c(va_list av)
 {
 	char	c;
+
 	c = va_arg(av, int);
-	ft_putchar(c);
-	return (1);
+	return (ft_putchar(c));
 }
 
-int print_int(va_list av)
+int	print_int(va_list av)
 {
 	int	n;
+
 	n = va_arg(av, int);
-	ft_putnbr(n);
-	return (1);
+	return (ft_putnbr(n));
 }
 
-int print_un(va_list av)
+int	print_un(va_list av)
 {
 	int	n;
+
 	n = va_arg(av, unsigned int);
-	ft_putunsigned(n);
-	return (1);
+	return (ft_put_un(n));
 }
 
-int print_p(va_list av)
+int	 print_p(va_list av)
 {
 	void	*p;
+	int	ret;
+
+	ret = 0;
 	p = va_arg(av, void *);
-	ft_putchar('0');
-	ft_putchar('x');
-	ft_printhex((unsigned long)p);
-	return (1);
+	ret = ft_putchar('0');
+	ret += ft_putchar('x');
+	ret += ft_printhex((unsigned long)p);
+	return (ret);
 }
 
-int print_x(va_list av)
+int	print_x(va_list av)
 {
 	unsigned int x;
+
 	x = va_arg(av, unsigned int);
-	ft_print_x(x);
-	return (1);
+	return (ft_print_x(x));
 }
 
-int print_X(va_list av)
+int	print_X(va_list av)
 {
 	unsigned int X;
+
 	X = va_arg(av, unsigned int);
-	ft_print_X(X);
-	return (1);
+	return (ft_print_X(X));
 }
 
-int print_no_fmt(va_list av)
+int	print_no_fmt(va_list av)
 {
-	ft_putchar('%');
-	return (1);
+	return (ft_putchar('%'));
 }
 
-void ft_printf(const char *fmt, ...)
+int	ft_printf(const char *fmt, ...)
 {
-	va_list av;
-	size_t i;
+	va_list	av;
+	int	i;
+	int	ret;
 
 	va_start(av, fmt);
 	i = 0;
+	ret = 0;
 	while (fmt[i])
 	{
 		if ((fmt[i]) == '%')
-			check_fmt(av, fmt[++i]);
+			ret += check_fmt(av, fmt[++i]);
 		else
-			ft_putchar(fmt[i]);
+			ret += ft_putchar(fmt[i]);
 		i++;
 	}
 	va_end(av);
+	return (ret);
 }

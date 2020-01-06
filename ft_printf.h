@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	CPRINTF_H
-#define CPRINTF_H
+#ifndef	FT_PRINTF_H
+#define FT_PRINTF_H
 #include <stdlib.h>
 #include <stdarg.h>
 
@@ -24,15 +24,15 @@ typedef struct s_Format {
 	int		(*f)(va_list av);
 }Format;
 
-void	check_fmt(va_list av, char c);
-void	ft_printf(const char *fmt, ...);
-int		print_s(va_list av);
-int		print_c(va_list av);
-int		print_int(va_list av);
-int		print_un(va_list av);
-int		print_p(va_list av);
-int		print_x(va_list av);
-int		print_X(va_list av);
-int		print_no_fmt(va_list av);
+int	check_fmt(va_list av, char c);
+int	ft_printf(const char *fmt, ...);
+int	print_s(va_list av);
+int	print_c(va_list av);
+int	print_int(va_list av);
+int	print_un(va_list av);
+int	print_p(va_list av);
+int	print_x(va_list av);
+int	print_X(va_list av);
+int	print_no_fmt(va_list av);
 
 #endif
