@@ -21,7 +21,7 @@ int		main(int ac, char **av)
 	unsigned int	x;
 	int		ret;
 
-	x = 42;
+	x = 42424242;
 	ret = 0;
 	ret = ft_printf("MY PRINTF : %s %d, %p %X %% %d", av[1], x, &ac, x, x);
 	printf("\nRETURN VALUE : %d\n", ret); 

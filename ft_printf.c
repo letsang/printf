@@ -27,6 +27,8 @@ int	ft_putstr(const char *s)
 	int		i;
 
 	ret = 0;
+	if (!s)
+		ret += write(1, "(null)", 6);
 	if (s)
 	{
 		i = 0;
@@ -174,7 +176,7 @@ int	print_u(va_list av)
 int	 print_p(va_list av)
 {
 	void	*p;
-	int	ret;
+	int		ret;
 
 	ret = 0;
 	p = va_arg(av, void *);
@@ -211,9 +213,9 @@ int	ft_printf(const char *fmt, ...)
 	int	i;
 	int	ret;
 
-	va_start(av, fmt);
 	i = 0;
 	ret = 0;
+	va_start(av, fmt);
 	while (fmt[i])
 	{
 		if ((fmt[i]) == '%')
