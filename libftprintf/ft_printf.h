@@ -6,7 +6,7 @@
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:00:07 by jtsang            #+#    #+#             */
-/*   Updated: 2020/01/09 12:44:29 by jtsang           ###   ########.fr       */
+/*   Updated: 2020/01/09 17:03:36 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,17 @@ typedef enum {
 
 typedef struct	s_format {
 	char		type;
+	int			justify;
+	int			padding;
+	int			width;
+	int			precision;
 	int			(*f)(va_list av);
 }				t_format;
 
 int				ft_putchar(int c);
 int				ft_putnbr_hex_min(unsigned long nb);
-int				check_fmt(va_list av, char c);
+int				ft_atoi(const char *str);
+int				check_fmt(va_list av, const char *fmt);
 int				ft_printf(const char *fmt, ...);
 int				print_s(va_list av);
 int				print_c(va_list av);

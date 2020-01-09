@@ -6,7 +6,7 @@
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 10:51:00 by jtsang            #+#    #+#             */
-/*   Updated: 2020/01/09 12:44:06 by jtsang           ###   ########.fr       */
+/*   Updated: 2020/01/09 16:07:20 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,20 @@ void	init_list_fmt(t_format list_fmt[NB_FORMAT])
 	list_fmt[NO_FORMAT].f = print_percent;
 }
 
-int		check_fmt(va_list av, char c)
+int		check_fmt(va_list av, const char *fmt)
 {
+	int				i;
 	int				ret;
 	t_format		list_fmt[NB_FORMAT];
 	t_type			current_type;
 
+	i = 0;
 	ret = 0;
 	init_list_fmt(list_fmt);
 	current_type = CHAR;
 	while (current_type != END)
 	{
-		if (list_fmt[current_type].type == c)
+		if (list_fmt[current_type].type == fmt[i])
 			ret += list_fmt[current_type].f(av);
 		current_type++;
 	}
@@ -64,7 +66,10 @@ int		ft_printf(const char *fmt, ...)
 	while (fmt[i])
 	{
 		if ((fmt[i]) == '%')
-			ret += check_fmt(av, fmt[++i]);
+		{
+			i++;
+			ret += check_fmt(av, fmt + i);
+		}
 		else
 			ret += ft_putchar(fmt[i]);
 		i++;
