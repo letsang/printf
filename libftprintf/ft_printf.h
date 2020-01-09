@@ -6,7 +6,7 @@
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:00:07 by jtsang            #+#    #+#             */
-/*   Updated: 2020/01/09 12:12:38 by jtsang           ###   ########.fr       */
+/*   Updated: 2020/01/09 12:44:29 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 typedef enum {
 	CHAR, STR, POINTER, INT_D, INT_I, UN,
 	HEX_MIN, HEX_MAJ, NO_FORMAT, END, NB_FORMAT
-}	t_list;
+}	t_type;
 
 typedef struct	s_format {
 	char		type;

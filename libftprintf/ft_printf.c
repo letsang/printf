@@ -6,7 +6,7 @@
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 10:51:00 by jtsang            #+#    #+#             */
-/*   Updated: 2020/01/09 12:04:57 by jtsang           ###   ########.fr       */
+/*   Updated: 2020/01/09 12:44:06 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int		check_fmt(va_list av, char c)
 {
 	int				ret;
 	t_format		list_fmt[NB_FORMAT];
-	t_list			current_fmt;
+	t_type			current_type;
 
 	ret = 0;
 	init_list_fmt(list_fmt);
-	current_fmt = CHAR;
-	while (current_fmt != END)
+	current_type = CHAR;
+	while (current_type != END)
 	{
-		if (list_fmt[current_fmt].type == c)
-			ret += list_fmt[current_fmt].f(av);
-		current_fmt++;
+		if (list_fmt[current_type].type == c)
+			ret += list_fmt[current_type].f(av);
+		current_type++;
 	}
 	return (ret);
 }
