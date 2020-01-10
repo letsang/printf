@@ -12,6 +12,21 @@
 
 #include "ft_printf.h"
 
+int	is_spec(char c)
+{
+	int				i;
+	char				spec[10] = "cspdiuxX%";
+	
+	i = 0;
+	while (spec[i])
+	{
+		if (spec[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	init_list_fmt(t_format list_fmt[NB_FORMAT])
 {
 	list_fmt[CHAR].type = 'c';
@@ -34,13 +49,41 @@ void	init_list_fmt(t_format list_fmt[NB_FORMAT])
 	list_fmt[NO_FORMAT].f = print_percent;
 }
 
-int		check_fmt(va_list av, const char *fmt)
+t_flag		check_flag(va_list av, const char *fmt)
+{
+	int				i;
+	int				j;
+	t_flag				list_flag = {0, 0, 0, 0};
+
+	(void)av;
+	i = 0;
+	if (fmt[i] == '-' || fmt[i] == '0')
+	{
+		list_flag.justify = (fmt[i] == '-') ? 1 : 0;
+		list_flag.padding = (fmt[i] == '0') ? 1 : 0;
+		i++;
+	}
+	while (fmt[i - 1] == '-' && fmt[i] == '0')
+		i++;
+	j = 0;
+	while (fmt[i] && (fmt[i] >= '0' && fmt[i] <= '9'))
+	{
+		j = i;
+		list_flag.width = ft_atoi(fmt + j);
+		i++;
+	}
+	return (list_flag);
+}
+
+#include <stdio.h>
+int		check_fmt(va_list av, t_flag list_flag, const char *fmt)
 {
 	int				i;
 	int				ret;
 	t_format		list_fmt[NB_FORMAT];
 	t_type			current_type;
 
+	(void)list_flag;
 	i = 0;
 	ret = 0;
 	init_list_fmt(list_fmt);
@@ -57,6 +100,7 @@ int		check_fmt(va_list av, const char *fmt)
 int		ft_printf(const char *fmt, ...)
 {
 	va_list			av;
+	t_flag			list_flag;
 	int				i;
 	int				ret;
 
@@ -68,7 +112,10 @@ int		ft_printf(const char *fmt, ...)
 		if ((fmt[i]) == '%')
 		{
 			i++;
-			ret += check_fmt(av, fmt + i);
+			list_flag = check_flag(av, fmt + i);
+			while (fmt[i] && !(is_spec(fmt[i])))
+				i++;
+			ret += check_fmt(av, list_flag, fmt + i);
 		}
 		else
 			ret += ft_putchar(fmt[i]);

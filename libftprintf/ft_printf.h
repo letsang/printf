@@ -23,18 +23,21 @@ typedef enum {
 }	t_type;
 
 typedef struct	s_format {
-	char		type;
+	char			type;
+	int			(*f)(va_list av);
+}				t_format;
+
+typedef struct	s_flag {
 	int			justify;
 	int			padding;
 	int			width;
 	int			precision;
-	int			(*f)(va_list av);
-}				t_format;
+}				t_flag;
 
 int				ft_putchar(int c);
 int				ft_putnbr_hex_min(unsigned long nb);
 int				ft_atoi(const char *str);
-int				check_fmt(va_list av, const char *fmt);
+int				check_fmt(va_list av, t_flag list_flag, const char *fmt);
 int				ft_printf(const char *fmt, ...);
 int				print_s(va_list av);
 int				print_c(va_list av);
