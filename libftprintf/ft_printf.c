@@ -52,7 +52,6 @@ void	init_list_fmt(t_format list_fmt[NB_FORMAT])
 t_flag		check_flag(va_list av, const char *fmt)
 {
 	int				i;
-	int				j;
 	t_flag				list_flag = {0, 0, 0, 0};
 
 	(void)av;
@@ -65,13 +64,10 @@ t_flag		check_flag(va_list av, const char *fmt)
 	}
 	while (fmt[i - 1] == '-' && fmt[i] == '0')
 		i++;
-	j = 0;
+	if (fmt[i] >= '0' && fmt[i] <= '9')
+		list_flag.width = ft_atoi(fmt + i);
 	while (fmt[i] && (fmt[i] >= '0' && fmt[i] <= '9'))
-	{
-		j = i;
-		list_flag.width = ft_atoi(fmt + j);
 		i++;
-	}
 	return (list_flag);
 }
 
@@ -83,7 +79,6 @@ int		check_fmt(va_list av, t_flag list_flag, const char *fmt)
 	t_format		list_fmt[NB_FORMAT];
 	t_type			current_type;
 
-	(void)list_flag;
 	i = 0;
 	ret = 0;
 	init_list_fmt(list_fmt);
@@ -91,7 +86,7 @@ int		check_fmt(va_list av, t_flag list_flag, const char *fmt)
 	while (current_type != END)
 	{
 		if (list_fmt[current_type].type == fmt[i])
-			ret += list_fmt[current_type].f(av);
+			ret += list_fmt[current_type].f(av, list_flag);
 		current_type++;
 	}
 	return (ret);

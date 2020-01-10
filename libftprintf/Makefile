@@ -1,5 +1,5 @@
 SRC		= ft_printf.c ft_putchar.c ft_putnbr_hex_min.c print_s.c \
-		  ft_atoi.c print_c.c print_di.c print_u.c \
+		  ft_atoi.c count_digit.c print_c.c print_di.c print_u.c \
 		  print_p.c print_xmin.c print_xmaj.c print_percent.c \
 
 OBJS	= ${SRC:.c=.o}

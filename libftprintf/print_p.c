@@ -12,11 +12,12 @@
 
 #include "ft_printf.h"
 
-int		print_p(va_list av)
+int		print_p(va_list av, t_flag list_flag)
 {
 	void			*p;
 	int				ret;
 
+	(void)list_flag;
 	ret = 0;
 	p = va_arg(av, void *);
 	ret = ft_putchar('0');

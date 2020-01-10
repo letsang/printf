@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_s.c                                          :+:      :+:    :+:   */
+/*   count_digit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/09 11:46:10 by jtsang            #+#    #+#             */
-/*   Updated: 2020/01/09 12:08:18 by jtsang           ###   ########.fr       */
+/*   Created: 2019/11/04 12:25:54 by jtsang            #+#    #+#             */
+/*   Updated: 2019/11/12 16:56:00 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_putstr(const char *s)
+int	count_digit(long nb)
 {
-	int				ret;
-	int				i;
+	int		nbr;
+	int		count;
 
-	ret = 0;
-	if (!s)
-		ret += write(1, "(null)", 6);
-	if (s)
+	nbr = nb;
+	count = 1;
+	if (nb < 0)
 	{
-		i = 0;
-		while (s[i])
-		{
-			ret += write(1, &s[i], 1);
-			i++;
-		}
+		nbr = -nb;
+		count++;
 	}
-	return (ret);
-}
-
-int		print_s(va_list av, t_flag list_flag)
-{
-	char			*s;
-
-	(void)list_flag;
-	s = va_arg(av, char *);
-	return (ft_putstr(s));
+	while (nbr >= 10)
+	{
+		nbr = nbr / 10;
+		count++;
+	}
+	return (count);
 }

@@ -23,10 +23,11 @@ int		ft_putnbr_un(unsigned int n)
 	return (ret);
 }
 
-int		print_u(va_list av)
+int		print_u(va_list av, t_flag list_flag)
 {
 	int				n;
 
+	(void)list_flag;
 	n = va_arg(av, unsigned int);
 	return (ft_putnbr_un(n));
 }

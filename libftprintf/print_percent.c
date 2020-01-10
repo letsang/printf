@@ -12,8 +12,9 @@
 
 #include "ft_printf.h"
 
-int		print_percent(va_list av)
+int		print_percent(va_list av, t_flag list_flag)
 {
 	(void)av;
+	(void)list_flag;
 	return (ft_putchar('%'));
 }
