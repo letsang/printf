@@ -15,14 +15,14 @@
 
 int		main(int ac, char **av)
 {
-	unsigned int	x;
+	int		n;
 	int		ret;
 
-	x = 42424242;
+	n = -94400;
 	ret = 0;
-	ret = ft_printf("MY PRINTF : %s %d, %p %X %% %d", av[1], x, &ac, x, x);
+	ret = ft_printf("MY PRINTF : %s %15d, %p %X %% %d", av[1], n, &ac, n, n);
 	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %d, %p %X %% %d", av[1], x, &ac, x, x);
-	printf("\nRETURN VALUE : %d", ret); 
+	ret = printf("CP PRINTF : %s %15d, %p %X %% %d", av[1], n, &ac, n, n);
+	printf("\nRETURN VALUE : %d", ret);
 	return (0); 
 }
