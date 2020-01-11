@@ -54,8 +54,21 @@ int		print_di(va_list av, t_flag list_flag)
 		{
 			while (diff)
 			{
-				ret += ft_putchar(' ');
-				diff--;
+				if (diff && list_flag.padding)
+				{
+					if (n < 0)
+					{
+						ret += ft_putchar('-');
+						n *= -1;
+					}
+					ret += ft_putchar('0');
+					diff--;
+				}
+				else
+				{
+					ret += ft_putchar(' ');
+					diff--;
+				}
 			}
 			ret += ft_putnbr(n);
 		}
