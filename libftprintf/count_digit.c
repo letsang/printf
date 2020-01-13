@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	count_digit(long nb)
+int	count_digit(long nb, t_flag list_flag)
 {
 	int		nbr;
 	int		count;
@@ -29,5 +29,7 @@ int	count_digit(long nb)
 		nbr = nbr / 10;
 		count++;
 	}
+	if (list_flag.pos && nb >= 0)
+		count++;
 	return (count);
 }

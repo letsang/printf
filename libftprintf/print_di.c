@@ -38,11 +38,13 @@ int		print_di(va_list av, t_flag list_flag)
 
 	ret = 0;
 	n = va_arg(av, int);
-	diff = list_flag.width - count_digit(n);
+	diff = list_flag.width - count_digit(n, list_flag);
 	if (diff > 0)
 	{
 		if (list_flag.justify)
 		{
+			if (list_flag.pos && (n >= 0))
+				ret += ft_putchar('+');
 			ret += ft_putnbr(n);
 			while (diff)
 			{
@@ -54,13 +56,15 @@ int		print_di(va_list av, t_flag list_flag)
 		{
 			while (diff)
 			{
-				if (diff && list_flag.padding)
+				if (list_flag.padding && diff)
 				{
 					if (n < 0)
 					{
 						ret += ft_putchar('-');
 						n *= -1;
 					}
+					else if (list_flag.pos && (n >= 0))
+						ret += ft_putchar('+');
 					ret += ft_putchar('0');
 					diff--;
 				}
@@ -70,10 +74,16 @@ int		print_di(va_list av, t_flag list_flag)
 					diff--;
 				}
 			}
+			if (list_flag.pos && (n >= 0))
+				ret += ft_putchar('+');
 			ret += ft_putnbr(n);
 		}
 	}	
 	else
+	{
+		if (list_flag.pos && (n >= 0))
+			ret += ft_putchar('+');
 		ret += ft_putnbr(n);
+	}
 	return (ret);
 }

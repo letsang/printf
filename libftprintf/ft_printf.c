@@ -52,26 +52,40 @@ void	init_list_fmt(t_format list_fmt[NB_FORMAT])
 t_flag		check_flag(va_list av, const char *fmt)
 {
 	int				i;
-	t_flag				list_flag = {0, 0, 0, 0};
+	t_flag				list_flag = {0, 0, 0, 0, 0};
 
-	(void)av;
 	i = 0;
-	if (fmt[i] == '-' || fmt[i] == '0')
+	while (fmt[i] == '-' || fmt[i] == '0' || fmt[i] == '+')
 	{
-		list_flag.justify = (fmt[i] == '-') ? 1 : 0;
-		list_flag.padding = (fmt[i] == '0') ? 1 : 0;
+		if (!(list_flag.justify))
+			list_flag.justify = (fmt[i] == '-') ? 1 : 0;
+		if (!(list_flag.justify) && (!(list_flag.padding)))
+			list_flag.padding = (fmt[i] == '0') ? 1 : 0;
+		if (!(list_flag.pos))
+			list_flag.pos = (fmt[i] == '+') ? 1 : 0;
 		i++;
 	}
-	while (fmt[i - 1] == '-' && fmt[i] == '0')
-		i++;
 	if (fmt[i] >= '0' && fmt[i] <= '9')
 		list_flag.width = ft_atoi(fmt + i);
+	else if (fmt[i] == '*')
+	{
+		list_flag.width = va_arg(av, int);
+		i++;
+	}
+	while (fmt[i] && (fmt[i] >= '0' && fmt[i] <= '9'))
+		i++;
+	if (fmt[i] == '.' && (fmt[++i] >= '0' && fmt[i] <= '9'))
+		list_flag.precision = ft_atoi(fmt + i);
+	else if (fmt[i] == '.' && fmt[++i] == '*')
+	{
+		list_flag.precision = va_arg(av, int);
+		i++;
+	}
 	while (fmt[i] && (fmt[i] >= '0' && fmt[i] <= '9'))
 		i++;
 	return (list_flag);
 }
 
-#include <stdio.h>
 int		check_fmt(va_list av, t_flag list_flag, const char *fmt)
 {
 	int				i;
