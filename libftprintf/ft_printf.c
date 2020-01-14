@@ -55,7 +55,7 @@ t_flag		check_flag(va_list av, const char *fmt)
 	t_flag				list_flag = {0, 0, 0, 0, 0};
 
 	i = 0;
-	while (fmt[i] == '-' || fmt[i] == '0' || fmt[i] == '+')
+	while (fmt[i] == '-' || fmt[i] == '0' || fmt[i] == '+' || fmt[i] == ' ')
 	{
 		if (!(list_flag.justify))
 			list_flag.justify = (fmt[i] == '-') ? 1 : 0;

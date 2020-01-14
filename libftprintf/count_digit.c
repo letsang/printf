@@ -29,7 +29,7 @@ int	count_digit(long nb, t_flag list_flag)
 		nbr = nbr / 10;
 		count++;
 	}
-	if (list_flag.pos && nb >= 0)
+	if (list_flag.pos && (nb >= 0))
 		count++;
 	return (count);
 }
