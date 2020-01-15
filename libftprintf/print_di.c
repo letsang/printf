@@ -104,10 +104,7 @@ int		print_di(va_list av, t_flag list_flag)
 			list_flag.precision - count_digit(n, list_flag) : 0;
 	if (list_flag.precision && (list_flag.pos == 1 || n < 0))
 		precision++;
-	if (precision > 0)
-		width = list_flag.width - (count_digit(n, list_flag) + precision);
-	else
-		width = list_flag.width - (count_digit(n, list_flag));
+	width = (precision > 0) ? list_flag.width - (count_digit(n, list_flag) + precision) : list_flag.width - (count_digit(n, list_flag));
 	if (width > 0)
 	{
 		if (list_flag.justify)
