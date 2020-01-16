@@ -12,20 +12,22 @@
 
 #include "ft_printf.h"
 
-int		ft_putnbr(int n)
+int		ft_putnbr(int n, t_flag list_flag)
 {
 	static int	ret;
 	unsigned int	nbr;
 
 	ret = 0;
 	nbr = n;
+	if (list_flag.dot && list_flag.precision == 0 && n == 0)
+		return (0);
 	if (n < 0)
 	{
 		ft_putchar('-');
 		nbr *= -1;
 	}
 	if (nbr > 9)
-		ft_putnbr(nbr / 10);
+		ft_putnbr((nbr / 10), list_flag);
 	ret += ft_putchar(nbr % 10 + 48);
 	return (n < 0) ? ret + 1 : ret;
 }
@@ -110,20 +112,20 @@ int		print_di(va_list av, t_flag list_flag)
 		if (list_flag.justify)
 		{
 			ret += print_di_precision(list_flag, &n, precision);
-			ret += ft_putnbr(n);
+			ret += ft_putnbr(n, list_flag);
 			ret += print_di_space(&width);
 		}
 		else
 		{
 			ret += print_di_padding(&list_flag, &n, &width);
 			ret += print_di_precision(list_flag, &n, precision);
-			ret += ft_putnbr(n);
+			ret += ft_putnbr(n, list_flag);
 		}
 	}	
 	else
 	{
 		ret += print_di_precision(list_flag, &n, precision);
-		ret += ft_putnbr(n);
+		ret += ft_putnbr(n, list_flag);
 	}
 	return (ret);
 }

@@ -37,10 +37,10 @@ typedef struct	s_format {
 }				t_format;
 
 int				ft_putchar(int c);
-int				ft_putnbr_hex_min(unsigned long nb);
+int				ft_putnbr_hex_min(unsigned long nb, t_flag list_flag);
 int				ft_atoi(const char *str);
 int				count_digit(long nb, t_flag list_flag);
-int				count_hex(unsigned long nb);
+int				count_hex(unsigned long nb, t_flag list_flag);
 int				check_fmt(va_list av, t_flag list_flag, const char *fmt);
 int				ft_printf(const char *fmt, ...);
 int				print_s(va_list av, t_flag list_flag);

@@ -67,8 +67,8 @@ int		print_p(va_list av, t_flag list_flag)
 	ret = 0;
 	p = va_arg(av, void *);
 	precision = (list_flag.precision) ?
-			list_flag.precision - count_hex((unsigned long)p) : 0;
-	width = list_flag.width - (count_hex((unsigned long)p) + 2);
+			list_flag.precision - count_hex((unsigned long)p, list_flag) : 0;
+	width = list_flag.width - (count_hex((unsigned long)p, list_flag) + 2);
 	if (width > 0)
 	{
 		if (list_flag.justify)
@@ -76,7 +76,7 @@ int		print_p(va_list av, t_flag list_flag)
 			ret += print_p_precision(precision);
 			ret = ft_putchar('0');
 			ret += ft_putchar('x');
-			ret += ft_putnbr_hex_min((unsigned long)p);
+			ret += ft_putnbr_hex_min((unsigned long)p, list_flag);
 			ret += print_p_space(&width);
 		}
 		else
@@ -85,7 +85,7 @@ int		print_p(va_list av, t_flag list_flag)
 			ret += print_p_precision(precision);
 			ret = ft_putchar('0');
 			ret += ft_putchar('x');
-			ret += ft_putnbr_hex_min((unsigned long)p);
+			ret += ft_putnbr_hex_min((unsigned long)p, list_flag);
 		}
 	}	
 	else
@@ -93,7 +93,7 @@ int		print_p(va_list av, t_flag list_flag)
 		ret += print_p_precision(precision);
 		ret = ft_putchar('0');
 		ret += ft_putchar('x');
-		ret += ft_putnbr_hex_min((unsigned long)p);
+		ret += ft_putnbr_hex_min((unsigned long)p, list_flag);
 	}
 	return (ret);
 }

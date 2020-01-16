@@ -12,13 +12,15 @@
 
 #include "ft_printf.h"
 
-int		ft_putnbr_un(unsigned int n)
+int		ft_putnbr_un(unsigned int n, t_flag list_flag)
 {
 	static int		ret;
 
 	ret = 0;
+	if (list_flag.dot && list_flag.precision == 0 && n == 0)
+		return (0);
 	if (n > 9)
-		ft_putnbr_un(n / 10);
+		ft_putnbr_un((n / 10), list_flag);
 	ret += ft_putchar(n % 10 + 48);
 	return (ret);
 }
@@ -104,20 +106,20 @@ int		print_u(va_list av, t_flag list_flag)
 		if (list_flag.justify)
 		{
 			ret += print_u_precision(list_flag, &n, precision);
-			ret += ft_putnbr_un(n);
+			ret += ft_putnbr_un(n, list_flag);
 			ret += print_u_space(&width);
 		}
 		else
 		{
 			ret += print_u_padding(&list_flag, &n, &width);
 			ret += print_u_precision(list_flag, &n, precision);
-			ret += ft_putnbr_un(n);
+			ret += ft_putnbr_un(n, list_flag);
 		}
 	}	
 	else
 	{
 		ret += print_u_precision(list_flag, &n, precision);
-		ret += ft_putnbr_un(n);
+		ret += ft_putnbr_un(n, list_flag);
 	}
 	return (ret);
 }

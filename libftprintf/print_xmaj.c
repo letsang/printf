@@ -12,14 +12,16 @@
 
 #include "ft_printf.h"
 
-int		ft_putnbr_hex_maj(unsigned long nb)
+int		ft_putnbr_hex_maj(unsigned long nb, t_flag list_flag)
 {
 	int				c;
 	static int		ret;
 
+	if (list_flag.dot && list_flag.precision == 0 && nb == 0)
+		return (0);
 	ret = 0;
 	if (nb >= 16)
-		ft_putnbr_hex_maj(nb / 16);
+		ft_putnbr_hex_maj((nb / 16), list_flag);
 	c = nb % 16 + (nb % 16 < 10 ? '0' : 'A' - 10);
 	ret += ft_putchar(c);
 	return (ret);
@@ -86,29 +88,29 @@ int		print_xmaj(va_list av, t_flag list_flag)
 	ret = 0;
 	x = va_arg(av, unsigned int);
 	precision = (list_flag.precision) ?
-			list_flag.precision - count_hex(x) : 0;
+			list_flag.precision - count_hex(x, list_flag) : 0;
 	if (list_flag.precision && (list_flag.pos == 1))
 		precision++;
-	width = (precision > 0) ? list_flag.width - (count_hex(x) + precision) : list_flag.width - (count_hex(x));
+	width = (precision > 0) ? list_flag.width - (count_hex(x, list_flag) + precision) : list_flag.width - (count_hex(x, list_flag));
 	if (width > 0)
 	{
 		if (list_flag.justify)
 		{
 			ret += print_xmaj_precision(list_flag, precision);
-			ret += ft_putnbr_hex_maj(x);
+			ret += ft_putnbr_hex_maj(x, list_flag);
 			ret += print_xmaj_space(&width);
 		}
 		else
 		{
 			ret += print_xmaj_padding(&list_flag, &width);
 			ret += print_xmaj_precision(list_flag, precision);
-			ret += ft_putnbr_hex_maj(x);
+			ret += ft_putnbr_hex_maj(x, list_flag);
 		}
 	}	
 	else
 	{
 		ret += print_xmaj_precision(list_flag, precision);
-		ret += ft_putnbr_hex_maj(x);
+		ret += ft_putnbr_hex_maj(x, list_flag);
 	}
 	return (ret);
 }

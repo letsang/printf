@@ -18,6 +18,8 @@ int	count_digit(long nb, t_flag list_flag)
 	int		count;
 
 	nbr = nb;
+	if (list_flag.dot && list_flag.precision == 0 && nb == 0)
+		return (0);
 	count = 1;
 	if (nb < 0)
 	{
