@@ -20,59 +20,10 @@ int		main(int ac, char **av)
 
 	n = 17;
 	ret = 0;
-/*	ret = ft_printf("MY PRINTF : %s %015d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %015d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret);
 
-	ret = ft_printf("MY PRINTF : %s %-015d, %p %X %% %d", av[1], n, &ac, n, n);
+	ret = ft_printf("MY PRINTF : %.s", "hello");
 	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %-015d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret);
-
-	ret = ft_printf("MY PRINTF : %s %-15d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %-15d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret);
-
-	ret = ft_printf("MY PRINTF : %s %15d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %15d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret);
-
-	ret = ft_printf("MY PRINTF : %s %-*d, %p %X %% %d", av[1], 8, n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %-*d, %p %X %% %d", av[1], 8, n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret);
-
-	ret = ft_printf("MY PRINTF : %s %0*d, %p %X %% %d", av[1], 5, n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %0*d, %p %X %% %d", av[1], 5, n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret);
-
-	ret = ft_printf("MY PRINTF : %s %*d, %p %X %% %d", av[1], 15, n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %*d, %p %X %% %d", av[1], 15, n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret);
-
-	ret = ft_printf("MY PRINTF : %s %-+5d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %-+5d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret); 
-
-	ret = ft_printf("MY PRINTF : %s %.d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %.d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret);
-
-	ret = ft_printf("MY PRINTF : %s %010.8d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %s %010.8d, %p %X %% %d", av[1], n, &ac, n, n);
-	printf("\nRETURN VALUE : %d\n\n", ret); */
-
-	ret = ft_printf("MY PRINTF : %x", n);
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %x", n);
+	ret = printf("CP PRINTF : %.s", "hello");
 	printf("\nRETURN VALUE : %d\n\n", ret);
 	return (0); 
 }

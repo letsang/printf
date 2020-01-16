@@ -52,10 +52,10 @@ void	init_list_fmt(t_format list_fmt[NB_FORMAT])
 t_flag		check_flag(va_list av, const char *fmt)
 {
 	int				i;
-	t_flag				list_flag = {0, 0, 0, 0, 0};
+	t_flag				list_flag = {0, 0, 0, 0, 0, 0};
 
 	i = 0;
-	while (fmt[i] == '-' || fmt[i] == '0' || fmt[i] == '+' || fmt[i] == ' ')
+	while (fmt[i] == '-' || fmt[i] == '0' || fmt[i] == '+')
 	{
 		if (!(list_flag.justify))
 			list_flag.justify = (fmt[i] == '-') ? 1 : 0;
@@ -74,6 +74,7 @@ t_flag		check_flag(va_list av, const char *fmt)
 	}
 	while (fmt[i] && (fmt[i] >= '0' && fmt[i] <= '9'))
 		i++;
+	list_flag.dot = (fmt[i] == '.') ? 1 : 0;
 	if (fmt[i] == '.' && (fmt[++i] >= '0' && fmt[i] <= '9'))
 		list_flag.precision = ft_atoi(fmt + i);
 	else if (fmt[i] == '.' && fmt[++i] == '*')

@@ -28,22 +28,16 @@ int		ft_putstr(const char *s, t_flag list_flag)
 	int				i;
 
 	ret = 0;
-	if (!s)
-		ret += write(1, "(null)", 6);
-	if (s)
+	if (list_flag.dot == 1 && list_flag.precision == 0)
+		return (0);
+	else if (s)
 	{
 		i = 0;
-		if (list_flag.precision && (list_flag.precision < ft_strlen(s)))
+		if (list_flag.precision &&
+				((list_flag.precision < ft_strlen(s)) ||
+					list_flag.precision > ft_strlen(s)))
 		{
 			while (s[i] && (i < list_flag.precision))
-			{
-				ret += write(1, &s[i], 1);
-				i++;
-			}
-		}
-		else if (!list_flag.precision || (list_flag.precision > ft_strlen(s)))
-		{
-			while (s[i])
 			{
 				ret += write(1, &s[i], 1);
 				i++;
@@ -98,12 +92,16 @@ int		print_s(va_list av, t_flag list_flag)
 	int			width;
 	int			precision;
 	char			*s;
+	char			null[7] = "(null)";
 
 	ret = 0;
 	s = va_arg(av, char *);
+	if (!s)
+		s = null;
 	precision = (list_flag.precision) ?
 			list_flag.precision - ft_strlen(s) : 0;
-	width = (precision > 0) ? list_flag.width - (ft_strlen(s) + precision) : list_flag.width - ft_strlen(s);
+	width = ((precision > 0) || !list_flag.dot) ?
+	list_flag.width - ft_strlen(s) : list_flag.width - list_flag.precision;
 	if (width > 0)
 	{
 		if (list_flag.justify)

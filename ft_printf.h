@@ -26,6 +26,7 @@ typedef struct	s_flag {
 	int			justify;
 	int			padding;
 	int			width;
+	int			dot;
 	int			precision;
 	int			pos;
 }				t_flag;
