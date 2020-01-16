@@ -33,9 +33,17 @@ int		ft_putstr(const char *s, t_flag list_flag)
 	if (s)
 	{
 		i = 0;
-		if (list_flag.precision < ft_strlen(s))
+		if (list_flag.precision && (list_flag.precision < ft_strlen(s)))
 		{
 			while (s[i] && (i < list_flag.precision))
+			{
+				ret += write(1, &s[i], 1);
+				i++;
+			}
+		}
+		else if (!list_flag.precision || (list_flag.precision > ft_strlen(s)))
+		{
+			while (s[i])
 			{
 				ret += write(1, &s[i], 1);
 				i++;
