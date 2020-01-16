@@ -12,20 +12,15 @@
 
 #include "ft_printf.h"
 
-int		print_xmin_precision(t_flag list_flag, unsigned long *x, int precision)
+int		print_xmin_precision(t_flag list_flag, int precision)
 {
 	int 		ret;
 
 	ret = 0;
-	if (list_flag.pos && (*x >= 0))
+	if (list_flag.pos)
 		ret += ft_putchar('+');
 	while (precision > 0)
 	{
-		if (*x < 0)
-		{
-			ret += ft_putchar('-');
-			*x *= -1;
-		}
 		ret += ft_putchar('0');
 		precision--;
 	}
@@ -45,7 +40,7 @@ int		print_xmin_space(int *width)
 	return (ret);
 }
 
-int		print_xmin_padding(t_flag *list_flag, unsigned long *x, int *width)
+int		print_xmin_padding(t_flag *list_flag, int *width)
 {
 	int		ret;
 
@@ -54,12 +49,7 @@ int		print_xmin_padding(t_flag *list_flag, unsigned long *x, int *width)
 	{
 		if (list_flag->padding && *width && !list_flag->precision)
 		{
-			if (*x < 0)
-			{
-				ret += ft_putchar('-');
-				*x *= -1;
-			}
-			else if (list_flag->pos && (*x >= 0))
+			if (list_flag->pos)
 			{
 				ret += ft_putchar('+');
 				list_flag->pos = 0;
@@ -84,27 +74,27 @@ int		print_xmin(va_list av, t_flag list_flag)
 	x = va_arg(av, unsigned int);
 	precision = (list_flag.precision) ?
 			list_flag.precision - count_hex(x) : 0;
-	if (list_flag.precision && (list_flag.pos == 1 || x < 0))
+	if (list_flag.precision && (list_flag.pos == 1))
 		precision++;
 	width = (precision > 0) ? list_flag.width - (count_hex(x) + precision) : list_flag.width - (count_hex(x));
 	if (width > 0)
 	{
 		if (list_flag.justify)
 		{
-			ret += print_xmin_precision(list_flag, &x, precision);
+			ret += print_xmin_precision(list_flag, precision);
 			ret += ft_putnbr_hex_min(x);
 			ret += print_xmin_space(&width);
 		}
 		else
 		{
-			ret += print_xmin_padding(&list_flag, &x, &width);
-			ret += print_xmin_precision(list_flag, &x, precision);
+			ret += print_xmin_padding(&list_flag, &width);
+			ret += print_xmin_precision(list_flag, precision);
 			ret += ft_putnbr_hex_min(x);
 		}
 	}	
 	else
 	{
-		ret += print_xmin_precision(list_flag, &x, precision);
+		ret += print_xmin_precision(list_flag, precision);
 		ret += ft_putnbr_hex_min(x);
 	}
 	return (ret);
