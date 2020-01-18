@@ -73,26 +73,26 @@ int		print_p(va_list av, t_flag list_flag)
 	{
 		if (list_flag.justify)
 		{
-			ret += print_p_precision(precision);
-			ret = ft_putchar('0');
+			ret += ft_putchar('0');
 			ret += ft_putchar('x');
+			ret += print_p_precision(precision);
 			ret += ft_putnbr_hex_min((unsigned long)p, list_flag);
 			ret += print_p_space(&width);
 		}
 		else
 		{
 			ret += print_p_padding(&list_flag, &width);
-			ret += print_p_precision(precision);
-			ret = ft_putchar('0');
+			ret += ft_putchar('0');
 			ret += ft_putchar('x');
+			ret += print_p_precision(precision);
 			ret += ft_putnbr_hex_min((unsigned long)p, list_flag);
 		}
 	}	
 	else
 	{
-		ret += print_p_precision(precision);
-		ret = ft_putchar('0');
+		ret += ft_putchar('0');
 		ret += ft_putchar('x');
+		ret += print_p_precision(precision);
 		ret += ft_putnbr_hex_min((unsigned long)p, list_flag);
 	}
 	return (ret);

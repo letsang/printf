@@ -17,18 +17,13 @@
 int		main(int ac, char **av)
 {
 	int		n;
-	int		i;
 	int		ret;
-	char		*str = NULL;
 
 	n = 42;
 	ret = 0;
-	i = 0;
-	if (!str)
-		printf("ok");
-	else
-		printf("pas ok");
-//	ret = printf("%", NULL);
-//	printf("\nRETURN VALUE : %d\n\n", ret);
+	ret = ft_printf("MY_PRINTF : %5p", NULL);
+	printf("\nRETURN VALUE : %d\n\n", ret);
+	ret = printf("CP_PRINTF : %5p", NULL);
+	printf("\nRETURN VALUE : %d\n\n", ret);
 	return (0); 
 }
