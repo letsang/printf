@@ -12,16 +12,6 @@
 
 #include "ft_printf.h"
 
-int		ft_strlen(const char *s)
-{
-	int				i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 int		ft_putstr(const char *s, t_flag list_flag)
 {
 	int				ret;

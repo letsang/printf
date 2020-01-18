@@ -36,6 +36,7 @@ typedef struct	s_format {
 	int			(*f)(va_list av, t_flag list_flag);
 }				t_format;
 
+int				ft_strlen(const char *s);
 int				ft_putchar(int c);
 int				ft_putnbr_hex_min(unsigned long nb, t_flag list_flag);
 int				ft_atoi(const char *str);

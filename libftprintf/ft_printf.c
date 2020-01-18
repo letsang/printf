@@ -27,6 +27,29 @@ int	is_spec(char c)
 	return (0);
 }
 
+int	is_spec_in_fmt(const char *fmt)
+{
+	int				i;
+	int				j;
+	char				spec[10] = "cspdiuxX%";
+
+	if (!fmt)
+		return (0);
+	i = 0;
+	while (fmt[i])
+	{
+		j = 0;
+		while (spec[j])
+		{
+			if (spec[j] == fmt[i])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	init_list_fmt(t_format list_fmt[NB_FORMAT])
 {
 	list_fmt[CHAR].type = 'c';
@@ -94,6 +117,8 @@ int		check_fmt(va_list av, t_flag list_flag, const char *fmt)
 	t_format		list_fmt[NB_FORMAT];
 	t_type			current_type;
 
+	if (!fmt)
+		return (0);
 	i = 0;
 	ret = 0;
 	init_list_fmt(list_fmt);
@@ -116,10 +141,12 @@ int		ft_printf(const char *fmt, ...)
 
 	i = 0;
 	ret = 0;
+	if (!fmt)
+		return (0);
 	va_start(av, fmt);
 	while (fmt[i])
 	{
-		if ((fmt[i]) == '%')
+		if ((fmt[i] == '%') && (ft_strlen(fmt + i) > 1) && is_spec_in_fmt(fmt + i + 1))
 		{
 			i++;
 			list_flag = check_flag(av, fmt + i);

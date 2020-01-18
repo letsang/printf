@@ -12,18 +12,23 @@
 
 #include "ft_printf.h"
 #include <stdio.h>
+#include <string.h>
 
 int		main(int ac, char **av)
 {
 	int		n;
+	int		i;
 	int		ret;
+	char		*str = NULL;
 
-	n = 17;
+	n = 42;
 	ret = 0;
-
-	ret = ft_printf("MY PRINTF : %.s", "hello");
-	printf("\nRETURN VALUE : %d\n", ret); 
-	ret = printf("CP PRINTF : %.s", "hello");
-	printf("\nRETURN VALUE : %d\n\n", ret);
+	i = 0;
+	if (!str)
+		printf("ok");
+	else
+		printf("pas ok");
+//	ret = printf("%", NULL);
+//	printf("\nRETURN VALUE : %d\n\n", ret);
 	return (0); 
 }
