@@ -93,16 +93,26 @@ t_flag		check_flag(va_list av, const char *fmt)
 	else if (fmt[i] == '*')
 	{
 		list_flag.width = va_arg(av, int);
+		if (list_flag.width < 0)
+		{
+			list_flag.width *= -1;
+			list_flag.justify = 1;
+		}
 		i++;
 	}
 	while (fmt[i] && (fmt[i] >= '0' && fmt[i] <= '9'))
 		i++;
 	list_flag.dot = (fmt[i] == '.') ? 1 : 0;
-	if (fmt[i] == '.' && (fmt[++i] >= '0' && fmt[i] <= '9'))
-		list_flag.precision = ft_atoi(fmt + i);
-	else if (fmt[i] == '.' && fmt[++i] == '*')
+	if (fmt[i] == '.' && (fmt[i + 1] >= '0' && fmt[i + 1] <= '9'))
+		list_flag.precision = ft_atoi(fmt + (i + 1));
+	else if (fmt[i] == '.' && fmt[i + 1] == '*')
 	{
 		list_flag.precision = va_arg(av, int);
+		if (list_flag.precision < 0)
+		{
+			list_flag.precision = 0;
+			list_flag.dot = 0;
+		}
 		i++;
 	}
 	while (fmt[i] && (fmt[i] >= '0' && fmt[i] <= '9'))
