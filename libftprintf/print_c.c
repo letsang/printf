@@ -42,7 +42,10 @@ int		print_c(va_list av, t_flag list_flag)
 			ret += print_c_space(&width);
 		}
 		else
+		{
+			ret += print_c_space(&width);
 			ret += ft_putchar(c);
+		}
 	}	
 	else
 		ret += ft_putchar(c);
