@@ -6,7 +6,7 @@
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:50:31 by jtsang            #+#    #+#             */
-/*   Updated: 2020/01/09 12:08:29 by jtsang           ###   ########.fr       */
+/*   Updated: 2020/01/27 14:24:38 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_putnbr_un(unsigned int n, t_flag list_flag)
 
 int		print_u_precision(t_flag list_flag, int *n, int precision)
 {
-	int 		ret;
+	int				ret;
 
 	ret = 0;
 	if (list_flag.pos && (*n >= 0))
@@ -42,25 +42,13 @@ int		print_u_precision(t_flag list_flag, int *n, int precision)
 		ret += ft_putchar('0');
 		precision--;
 	}
-	return (ret);
-}
-
-int		print_u_space(int *width)
-{
-	int		ret;
-
-	ret = 0;
-	while (*width > 0)
-	{
-		ret += ft_putchar(' ');
-		(*width)--;
-	}
+	ret += ft_putnbr_un(*n, list_flag);
 	return (ret);
 }
 
 int		print_u_padding(t_flag *list_flag, int *n, int *width)
 {
-	int		ret;
+	int				ret;
 
 	ret = 0;
 	while (*width > 0)
@@ -81,11 +69,33 @@ int		print_u_padding(t_flag *list_flag, int *n, int *width)
 			(*width)--;
 		}
 		else
-			ret += print_u_space(width);
+			ret += print_space(width);
 	}
 	return (ret);
 }
 
+int		print_u_next(int width, int precision, int n, t_flag list_flag)
+{
+	int				ret;
+
+	ret = 0;
+	if (width > 0)
+	{
+		if (list_flag.justify)
+		{
+			ret += print_u_precision(list_flag, &n, precision);
+			ret += print_space(&width);
+		}
+		else
+		{
+			ret += print_u_padding(&list_flag, &n, &width);
+			ret += print_u_precision(list_flag, &n, precision);
+		}
+	}
+	else
+		ret += print_u_precision(list_flag, &n, precision);
+	return (ret);
+}
 
 int		print_u(va_list av, t_flag list_flag)
 {
@@ -100,26 +110,9 @@ int		print_u(va_list av, t_flag list_flag)
 			list_flag.precision - count_digit(n, list_flag) : 0;
 	if (list_flag.precision && (list_flag.pos == 1 || n < 0))
 		precision++;
-	width = (precision > 0) ? list_flag.width - (count_digit(n, list_flag) + precision) : list_flag.width - (count_digit(n, list_flag));
-	if (width > 0)
-	{
-		if (list_flag.justify)
-		{
-			ret += print_u_precision(list_flag, &n, precision);
-			ret += ft_putnbr_un(n, list_flag);
-			ret += print_u_space(&width);
-		}
-		else
-		{
-			ret += print_u_padding(&list_flag, &n, &width);
-			ret += print_u_precision(list_flag, &n, precision);
-			ret += ft_putnbr_un(n, list_flag);
-		}
-	}	
-	else
-	{
-		ret += print_u_precision(list_flag, &n, precision);
-		ret += ft_putnbr_un(n, list_flag);
-	}
+	width = (precision > 0) ?
+		list_flag.width - (count_digit(n, list_flag) + precision) :
+		list_flag.width - (count_digit(n, list_flag));
+	ret += print_u_next(width, precision, n, list_flag);
 	return (ret);
 }

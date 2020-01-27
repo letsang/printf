@@ -6,7 +6,7 @@
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:00:07 by jtsang            #+#    #+#             */
-/*   Updated: 2020/01/09 17:03:36 by jtsang           ###   ########.fr       */
+/*   Updated: 2020/01/27 13:57:04 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ typedef struct	s_flag {
 
 typedef struct	s_format {
 	char			type;
-	int			(*f)(va_list av, t_flag list_flag);
+	int				(*f)(va_list av, t_flag list_flag);
 }				t_format;
 
 int				ft_strlen(const char *s);
 int				ft_putchar(int c);
-int				ft_putnbr_hex_min(unsigned long nb, t_flag list_flag);
 int				ft_atoi(const char *str);
 int				count_digit(long nb, t_flag list_flag);
 int				count_hex(unsigned long nb, t_flag list_flag);
 int				check_fmt(va_list av, t_flag list_flag, const char *fmt);
 int				ft_printf(const char *fmt, ...);
+int				print_space(int *width);
 int				print_s(va_list av, t_flag list_flag);
 int				print_c(va_list av, t_flag list_flag);
 int				print_di(va_list av, t_flag list_flag);

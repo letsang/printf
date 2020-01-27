@@ -6,7 +6,7 @@
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:25:54 by jtsang            #+#    #+#             */
-/*   Updated: 2019/11/12 16:56:00 by jtsang           ###   ########.fr       */
+/*   Updated: 2020/01/27 10:59:33 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	count_digit(long nb, t_flag list_flag)
 {
-	long		nbr;
+	long	nbr;
 	int		count;
 
 	nbr = nb;

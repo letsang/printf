@@ -6,17 +6,17 @@
 /*   By: jtsang <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 10:51:00 by jtsang            #+#    #+#             */
-/*   Updated: 2020/01/09 16:07:20 by jtsang           ###   ########.fr       */
+/*   Updated: 2020/01/27 11:10:56 by jtsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	is_spec(char c)
+int		is_spec(char c)
 {
 	int				i;
-	char				spec[10] = "cspdiuxX%";
-	
+	char			spec[10] = "cspdiuxX%";
+
 	i = 0;
 	while (spec[i])
 	{
@@ -27,11 +27,11 @@ int	is_spec(char c)
 	return (0);
 }
 
-int	is_spec_in_fmt(const char *fmt)
+int		is_spec_in_fmt(const char *fmt)
 {
 	int				i;
 	int				j;
-	char				spec[10] = "cspdiuxX%";
+	char			spec[10] = "cspdiuxX%";
 
 	if (!fmt)
 		return (0);
@@ -72,10 +72,10 @@ void	init_list_fmt(t_format list_fmt[NB_FORMAT])
 	list_fmt[NO_FORMAT].f = print_percent;
 }
 
-t_flag		check_flag(va_list av, const char *fmt)
+t_flag	check_flag(va_list av, const char *fmt)
 {
 	int				i;
-	t_flag				list_flag = {0, 0, 0, 0, 0, 0};
+	t_flag			list_flag = {0, 0, 0, 0, 0, 0};
 
 	i = 0;
 	while (fmt[i] == '-' || fmt[i] == '0' || fmt[i] == '+')
@@ -156,7 +156,8 @@ int		ft_printf(const char *fmt, ...)
 	va_start(av, fmt);
 	while (fmt[i])
 	{
-		if ((fmt[i] == '%') && (ft_strlen(fmt + i) > 1) && is_spec_in_fmt(fmt + i + 1))
+		if ((fmt[i] == '%') && (ft_strlen(fmt + i) > 1) &&
+				is_spec_in_fmt(fmt + i + 1))
 		{
 			i++;
 			list_flag = check_flag(av, fmt + i);
